@@ -31,6 +31,7 @@ class Questionaire {
         return {
             sequence: this.sequence,
             data: this.dataCollected,
+            response: this.questions[key] && this.questions[key].response,
             next: this.getNext(),
         };
     }
