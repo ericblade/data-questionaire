@@ -24,15 +24,26 @@ class Questionaire {
         });
         return next;
     }
+    // TODO: devise a method by which a user can supply multiple answers at the same time,
+    // and receive a response that is somehow appropriate for all of them.
+    // ie, "I received x, y, and z as responses." not
+    // "I received x.", "I received y.", "I received z."
     answer(key, answer) {
         this.sequence.push(key);
         this.dataCollected[key] = answer;
 
+        let response = this.questions[key] && this.questions[key].response;
+        if (typeof response === 'function') {
+            const transform = response(answer);
+            if (transform) {
+                this.dataCollected[key] = transform;
+            }
+        }
         return {
             sequence: this.sequence,
             data: this.dataCollected,
-            response: this.questions[key] && this.questions[key].response,
             next: this.getNext(),
+            response,
         };
     }
     ask(key) {
