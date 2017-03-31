@@ -34,7 +34,7 @@ class Questionaire {
 
         let response = this.questions[key] && this.questions[key].response;
         if (typeof response === 'function') {
-            const transform = response(answer);
+            const transform = response(answer, this.dataCollected);
             if (transform) {
                 this.dataCollected[key] = transform;
             }
