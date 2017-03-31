@@ -41,6 +41,8 @@ class Questionaire {
     }
 }
 
+module.exports = Questionaire;
+
 // let q = new Questionaire({
 //     forDate: {
 //         message: (data) => {
