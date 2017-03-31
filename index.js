@@ -7,6 +7,9 @@ class Questionaire {
         }, {});
         this.sequence = [];
     }
+    getResults() {
+        return this.dataCollected;
+    }
     getLast() {
         return this.sequence[this.sequence.length - 1];
     }
