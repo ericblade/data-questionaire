@@ -36,7 +36,7 @@ class Questionaire {
     }
     ask(key) {
         const next = this.getNext();
-        const m = key ? this.questions[key].message : next && next.message;
+        const m = key ? (this.questions[key] && this.questions[key].message) : (next && next.next.message);
         if (typeof m === 'function') {
             return m(this.dataCollected);
         } else {
