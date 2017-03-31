@@ -35,7 +35,8 @@ class Questionaire {
         };
     }
     ask(key) {
-        const m = key ? this.questions[key].message : this.getNext().next.message;
+        const next = this.getNext();
+        const m = key ? this.questions[key].message : next && next.message;
         if (typeof m === 'function') {
             return m(this.dataCollected);
         } else {
