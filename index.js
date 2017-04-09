@@ -13,16 +13,18 @@ class Questionaire {
     getLast() {
         return this.sequence[this.sequence.length - 1];
     }
-    getNext() {
-        let next = null;
+    // return the key for the current question, and the data content for the next, as it is likely
+    // you will need to make some decisions knowing what the state of the next question is.
+    getCurrent() {
+        let current = null;
         Object.keys(this.questions).some((key) => {
             if (!this.dataCollected[key]) {
-                next = { key, next: this.questions[key] };
+                current = { key, next: this.questions[key] };
                 return true;
             }
             return false;
         });
-        return next;
+        return current;
     }
     // TODO: devise a method by which a user can supply multiple answers at the same time,
     // and receive a response that is somehow appropriate for all of them.
@@ -45,12 +47,12 @@ class Questionaire {
         return {
             sequence: this.sequence,
             data: this.dataCollected,
-            next: this.getNext(),
+            next: this.getCurrent(),
             response,
         };
     }
     ask(key) {
-        const next = this.getNext();
+        const next = this.getCurrent();
         const m = key ? (this.questions[key] && this.questions[key].message) : (next && next.next.message);
         if (typeof m === 'function') {
             return m(this.dataCollected);
